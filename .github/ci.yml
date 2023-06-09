@@ -3,7 +3,7 @@ name: Componly
 on:
   push:
     branches:
-      - test 
+      - test # To be updated to main
 
 jobs:
   read-file:
