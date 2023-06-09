@@ -1,0 +1,22 @@
+name: Componly
+
+on:
+  push:
+    branches:
+      - test 
+
+jobs:
+  read-file:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Read file content
+      uses: actions/github-script@v5
+      with:
+        script: |
+          const fs = require('fs');
+          const fileContent = fs.readFileSync('./componly.config.json', 'utf8');
+          console.log(JSON.parse(fileContent));
