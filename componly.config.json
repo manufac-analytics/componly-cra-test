@@ -1,0 +1,12 @@
+{
+    "url": "http://localhost:3000",
+    "storybook": ".storybook",
+    "projectType": "react",
+    "storybookBuild": "storybook-static",
+    "designTokenGlobs": ["**/src/design-token.ts"],
+    "clientName": "Test client",
+    "staticDomain": "http://localhost:3000",
+    "projectID": "componly react project",
+    "codebaseID": "componly react project"
+  }
+  
