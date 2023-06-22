@@ -22,7 +22,7 @@ jobs:
       id: install-dependencies
       run: |
         echo ${{secrets.COMPONLY_NPM_AUTH_TOKEN}}
-        echo @componly:registry=https://npm.pkg.github.com/ >.npmrc
+        echo @componly:registry=https://npm.pkg.github.com/ >>.npmrc
         echo //npm.pkg.github.com/:_authToken=${{secrets.COMPONLY_NPM_AUTH_TOKEN}} >>.npmrc
         cat .npmrc
         yarn install 
