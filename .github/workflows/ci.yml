@@ -3,7 +3,7 @@ name: Componly
 on:
   push:
     branches:
-      - nmohan/#1046-support-for-github-actions-part-2
+      - main
 
 jobs:
   build:
