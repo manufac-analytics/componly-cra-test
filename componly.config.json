@@ -6,7 +6,7 @@
     "designTokenGlobs": ["**/src/design-token.ts"],
     "clientName": "Test client",
     "staticDomain": "http://localhost:3000",
-    "projectID": "componly react project",
-    "codebaseID": "componly react project"
+    "projectID": "componly-cra-test",
+    "codebaseID": "componly-cra-test"
   }
   
