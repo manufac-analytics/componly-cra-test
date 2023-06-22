@@ -3,7 +3,7 @@ name: Componly
 on:
   push:
     branches:
-      - main
+      - nmohan/#1046-support-for-github-actions-part-2
 
 jobs:
   build:
@@ -23,7 +23,8 @@ jobs:
       run: |
         echo ${{secrets.COMPONLY_NPM_AUTH_TOKEN}}
         echo @componly:registry=https://npm.pkg.github.com/ >.npmrc
-        echo //npm.pkg.github.com/:_authToken=${{secrets.NPM_AUTH_TOKEN}} >>.npmrc
+        echo //npm.pkg.github.com/:_authToken=${{secrets.COMPONLY_NPM_AUTH_TOKEN}} >>.npmrc
+        cat .npmrc
         yarn install 
 
     - name: scan
