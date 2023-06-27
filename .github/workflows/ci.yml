@@ -3,7 +3,7 @@ name: Componly
 on:
   push:
     branches:
-      - main
+      - main2
 
 jobs:
   build:
@@ -28,3 +28,10 @@ jobs:
     - name: scan
       id: componly-scan
       run: yarn scan 
+
+    - name: Post scan.json
+      id: post-scan
+      uses: actions/github-script@v5
+      with:
+        script: |
+          
