@@ -38,48 +38,53 @@ jobs:
           const { createReadStream } = require("fs");
           const axios = require("axios");
 
-          async function postScan() {
-            const { data: userInfo } = await axios.post(
-              "https://backend-production-e808.up.railway.app/auth/login",
-              {
-                email: "${{secrets.COMPONLY_USERNAME}}",
-                password: "${{secrets.COMPONLY_PASSWORD}}",
-              }
-            );
+          const instance = axios.create({
+            baseURL: "https://backend-production-e808.up.railway.app",
+            headers: {
+              "Content-Type": "application/json",
+            },
+          });
 
-            const { data: projectInfo } = await axios.get(
-              "https://backend-production-e808.up.railway.app/companies/projects?page=1&pageSize=1&with-cli=true&with-sourceCodes=true",
+          async function postScan() {
+            const userInfoResponse = await instance.post("/auth/login", {
+              email: "${{secrets.COMPONLY_USERNAME}}",
+              password: "${{secrets.COMPONLY_PASSWORD}}",
+            });
+
+            const userInfo = userInfoResponse.data.response;
+
+            const projectInfoResponse = await instance.get(
+              "/companies/projects?page=1&pageSize=1&with-cli=true&with-sourceCodes=true",
               {
                 headers: {
-                  Authorization: `Bearer ${userInfo.response.token}`,
+                  Authorization: `Bearer ${userInfo.token}`,
                 },
               }
             );
 
-            const [project] = projectInfo.projects;
+            const projectInfo = projectInfoResponse.data;
+            const project = projectInfo.projects[0];
             const { id: cliId, password } = project.cli;
             const [sourceCode] = project.sourceCodes;
 
-            const { data: projectLoginResponse } = await axios.post(
-              "https://backend-production-e808.up.railway.app/auth/login/cli",
-              {
-                cliId,
-                password,
-              }
-            );
+            const projectLoginResponse = await instance.post("/auth/login/cli", {
+              cliId,
+              password,
+            });
 
-            const { token } = projectLoginResponse;
+            const token = projectLoginResponse.data.token;
+
             const formData = new FormData();
             const fileStream = createReadStream("./.componly/scan.json");
             formData.append("file", fileStream);
 
-            const response = await axios.post(
-              `https://backend-production-e808.up.railway.app/scans/upload/${sourceCode.id}`,
+            const response = await instance.post(
+              `/scans/upload/${sourceCode.id}`,
               formData,
               {
                 headers: {
                   Authorization: `Bearer ${token}`,
-                  "Content-Type": "multipart/form-data",
+                  ...formData.getHeaders(),
                 },
               }
             );
