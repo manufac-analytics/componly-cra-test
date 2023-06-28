@@ -49,7 +49,7 @@ jobs:
             const serializedConfig = readFileSync("./componly.config.json");
             const { codebaseID } = JSON.parse(serializedConfig);
             const projectLoginResponse = await instance.post("/auth/login/cli", {
-              cliId: "${{secrets.COMPONLY_API_SECRET}}",
+              cliId: "${{secrets.COMPONLY_API_KEY}}",
               password: "${{secrets.COMPONLY_API_SECRET}}",
             });
 
