@@ -3,7 +3,7 @@ name: Componly
 on:
   push:
     branches:
-      - debug
+      - main
 
 jobs:
   build:
