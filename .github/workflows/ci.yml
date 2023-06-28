@@ -47,8 +47,8 @@ jobs:
                   "Content-Type": "application/json",
                 },
                 body: JSON.stringify({
-                  email: ${{secrets.COMPONLY_USERNAME}},
-                  password: ${{secrets.COMPONLY_PASSWORD}},
+                  email: "${{secrets.COMPONLY_USERNAME}}",
+                  password: "${{secrets.COMPONLY_PASSWORD}}",
                 }),
               }
             );
