@@ -101,4 +101,4 @@ jobs:
             console.log(res);
           }
 
-          postScan();
+          postScan().catch(console.log);
