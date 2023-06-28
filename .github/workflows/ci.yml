@@ -34,4 +34,71 @@ jobs:
       uses: actions/github-script@v5
       with:
         script: |
-          
+          const  FormData = require ("form-data");
+          const  { createReadStream } = require ("fs");
+          const  axios = require ("axios");
+
+          async function postScan() {
+            const rawUserResponse = await fetch(
+              "https://backend-production-e808.up.railway.app/auth/login",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  email: "assoulsidali@gmail.com",
+                  password: "123456",
+                }),
+              }
+            );
+            const { response: userInfo } = await rawUserResponse.json();
+
+            const rawProjectInfo = await fetch(
+              "https://backend-production-e808.up.railway.app/companies/projects?page=1&pageSize=1&with-cli=true&with-sourceCodes=true",
+              {
+                method: "GET",
+                headers: {
+                  "Content-Type": "application/json",
+                  Authorization: `Bearer ${userInfo.token}`,
+                },
+              }
+            );
+            const { projects } = await rawProjectInfo.json();
+            const [project] = projects;
+            const { id: cliId, password } = project.cli;
+            const [sourceCode] = project.sourceCodes;
+
+            const projectLoginResponse = await fetch(
+              "https://backend-production-e808.up.railway.app/auth/login/cli",
+              {
+                method: "POST",
+                headers: {
+                  "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+                  cliId,
+                  password,
+                }),
+              }
+            );
+            const { token } = await projectLoginResponse.json();
+            const formData = new FormData();
+            const fileStream = createReadStream("./.componly/scan.json");
+            formData.append("file", fileStream);
+
+            const res = await axios.post(
+              `https://backend-production-e808.up.railway.app/scans/upload/${sourceCode.id}`,
+              formData,
+              {
+                headers: {
+                  Authorization: `Bearer ${token}`,
+                  "Content-Type": "multipart/form-data",
+                },
+              }
+            );
+
+            console.log(res);
+          }
+
+          postScan();
