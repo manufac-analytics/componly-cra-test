@@ -57,7 +57,7 @@ jobs:
                 }
               );
 
-              mkdirSync("./.componly/");
+              mkdirSync("./.componly");
               writeFileSync("./.componly/ds.json", JSON.stringify(response.data, undefined, 2))
 
               console.log(response.status);
