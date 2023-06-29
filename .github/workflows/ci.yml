@@ -109,7 +109,7 @@ jobs:
                 }
               );
 
-              console.log(JSON.stringify(response.data, undefined, 2));
+              console.log(response.status);
             }
 
             postScan().catch(console.log);
