@@ -67,7 +67,7 @@ jobs:
 
       - name: scan
         id: componly-scan
-        run: yarn scan --design-systems-path ./.componly/ds.json
+        run: yarn scan
 
       - name: Post scan.json
         id: post-scan
