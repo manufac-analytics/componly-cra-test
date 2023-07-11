@@ -5,5 +5,6 @@
   "clientName": "Test client",
   "staticDomain": "http://localhost:3000",
   "projectID": "componly-cra-test",
-  "codebaseID": "f47f7313-6d56-4f9a-b931-4621d44dd811"
+  "codebaseID": "f47f7313-6d56-4f9a-b931-4621d44dd811",
+  "project": "."
 }
