@@ -3,7 +3,7 @@ name: Componly
 on:
   push:
     branches:
-      - main
+      - nmohan/#6-add-axios
 
 jobs:
   build:
