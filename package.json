@@ -23,7 +23,8 @@
     "eject": "react-scripts eject",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "scan": "componly scan"
+    "scan": "componly scan",
+    "parse": "componly parse"
   },
   "eslintConfig": {
     "extends": [
@@ -45,8 +46,7 @@
     ]
   },
   "devDependencies": {
-    "axios": "^1.4.0",
-    "@componly/cli": "^1.18.0",
+    "@componly/cli": "^1.23.0",
     "@storybook/addon-essentials": "^7.0.22",
     "@storybook/addon-interactions": "^7.0.22",
     "@storybook/addon-links": "^7.0.22",
