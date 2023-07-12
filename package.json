@@ -23,7 +23,7 @@
     "eject": "react-scripts eject",
     "storybook": "storybook dev -p 6006",
     "build-storybook": "storybook build",
-    "scan": "componly scan --design-systems-path=./.componly/ds.json"
+    "scan": "componly scan --design-systems-path ./.componly/ds.json --config-path ./ --project ./"
   },
   "eslintConfig": {
     "extends": [
